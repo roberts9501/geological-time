@@ -38,3 +38,10 @@ The trade-off: there is no sub-ka unit. Anything under 1000 years renders as a f
 - `GeologicalTime` — the main class. Methods: `from_human`, `from_scientific`, `to_human`, `to_scientific`. Property: `years` (Decimal).
 - `format_scientific(years)` — shortcut for `GeologicalTime(years).to_scientific()`.
 - `parse_scientific(text)` — shortcut returning the Decimal year count.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
